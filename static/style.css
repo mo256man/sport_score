@@ -1,0 +1,18 @@
+div.menu_area {
+    display: flex;
+}
+
+div.menu_button {
+    flex: 1;
+    border: 1px solid black;
+    /* background-color: lightgray; 背景色はjqueryで設定する*/
+    border-radius: 5px;
+    font-size: x-large;
+    text-align: center;
+    margin: 0 10px;
+}
+
+div.title {
+    font-size: xx-large;
+    font-weight: bold;
+}
