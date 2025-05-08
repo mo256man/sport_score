@@ -1,8 +1,20 @@
 .custom-button {
-    width: 40%;
+    box-sizing: border-box;
+    width: 50%;
     font-size: x-large;
     padding: 10px;
     border-radius: 5px;
     border: none;
     margin: 0 5px;
+}
+
+.btnArea {
+    border: 1px solid red;
+    width:90%;
+    display: flex;
+}
+
+.graphArea {
+    width:100%;
+    height:800px;
 }

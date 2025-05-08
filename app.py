@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, render_template, request, jsonify
 from dash import Dash, dcc, html, Input, Output, ctx
 from dash import dcc, html
@@ -9,11 +8,14 @@ server = Flask(__name__)
 dash_app = Dash(__name__, server=server, url_base_pathname="/dash/")
 ip_flags = {}
 
-dash_app.layout = html.Div([
-    html.Button("バレー", id="btnVolley", n_clicks=0, className="custom-button"),
-    html.Button("ハンド", id="btnHandball", n_clicks=0, className="custom-button"),
-    dcc.Graph(id="dynamic-graph", figure=draw_graph_plotly("初期")),
-])
+dash_app.layout = \
+    html.Div(
+    [   html.Button("バレー", id="btnVolley", n_clicks=0, className="custom-button"),
+        html.Button("ハンド", id="btnHandball", n_clicks=0, className="custom-button")
+    ], className="btnArea"), \
+    html.Div(
+    dcc.Graph(id="dynamic-graph", figure=draw_graph_plotly("初期")), className="graphArea"
+    )
 
 @server.before_request
 def detect_ip():
@@ -31,15 +33,17 @@ def detect_ip():
 def update_graph(n_clicks_graph1, n_clicks_graph2):
     default_style = {"backgroundColor": "lightgray"}
     active_style = {"backgroundColor": "lightblue"}
+    handball_style = default_style
+    volley_style = default_style    
     id = ctx.triggered_id
     if id == "btnVolley":
         volley_style = active_style
-        handball_style = default_style
         fig = draw_graph_plotly("バレー")
     elif id == "btnHandball":
-        volley_style = default_style
         handball_style = active_style
         fig = draw_graph_plotly("ハンド")
+    else:
+        fig = draw_graph_plotly("バレー")
     return volley_style, handball_style, fig
 
 
@@ -66,4 +70,4 @@ def your_endpoint():
     return jsonify(response_data)
 
 if __name__ == "__main__":
-    server.run(debug=True)
+    server.run(host="0.0.0.0", debug=True)
